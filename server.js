@@ -45,13 +45,31 @@ app.put('/messages', (req, res) => {
       thumbUp:req.body.thumbUp + 1
     }
   }, {
+    // In descending order, grab first match in the database if there are identical things with same values (name, message, likes)
     sort: {_id: -1},
+    // if value does not exist, create it in the database
     upsert: true
   }, (err, result) => {
     if (err) return res.send(err)
     res.send(result)
   })
 })
+
+// adding thumbDown functionality server-side
+// app.put('/messages', (req, res) => {
+//   db.collection('messages')
+//   .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
+//     $set: {
+//       thumbDown:req.body.thumbDown - 1
+//     }
+//   }, {
+//     sort: {_id: -1},
+//     upsert: true
+//   }, (err, result) => {
+//     if (err) return res.send(err)
+//     res.send(result)
+//   })
+// })
 
 app.delete('/messages', (req, res) => {
   db.collection('messages').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
