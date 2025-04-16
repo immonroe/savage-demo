@@ -5,9 +5,9 @@ var trash = document.getElementsByClassName("fa-trash");
 Array.from(thumbUp).forEach(function(element) {
       element.addEventListener('click', function(){
         const name = this.parentNode.parentNode.childNodes[1].innerText
-        console.log(name)
         const msg = this.parentNode.parentNode.childNodes[3].innerText
         const thumbUp = parseFloat(this.parentNode.parentNode.childNodes[5].innerText) // is there a more efficient solution that directly targets this element?
+        console.log(thumbUp)
         // Changed fetch route to match app.put on server.js file
         fetch('messages/upvote', {
           method: 'put',
@@ -33,7 +33,11 @@ Array.from(thumbDown).forEach(function(element) {
   element.addEventListener('click', function(){
     const name = this.parentNode.parentNode.childNodes[1].innerText
     const msg = this.parentNode.parentNode.childNodes[3].innerText
+    const thumbUp = parseFloat(this.parentNode.parentNode.childNodes[5].innerText)
     const thumbDown = parseFloat(this.parentNode.parentNode.childNodes[7].innerText) // is there a more efficient solution that directly targets this element?
+    console.log(thumbUp)
+    console.log(thumbDown)
+
     // Changed fetch route to match app.put on server.js file
     fetch('messages/downvote', {
       method: 'put',
@@ -41,6 +45,7 @@ Array.from(thumbDown).forEach(function(element) {
       body: JSON.stringify({
         'name': name,
         'msg': msg,
+        'thumbUp':thumbUp,
         'thumbDown':thumbDown
       })
     })

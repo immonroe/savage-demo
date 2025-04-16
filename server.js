@@ -42,9 +42,7 @@ app.post('/messages', (req, res) => {
 app.put('/messages/upvote', (req, res) => {
   db.collection('messages')
   .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
-    $set: {
-      thumbUp:req.body.thumbUp + 1
-    }
+    $inc: { thumbUp: 1 }
   }, {
     // In descending order, grab first match in the database if there are identical things with same values (name, message, likes)
     sort: {_id: -1},
@@ -60,9 +58,7 @@ app.put('/messages/upvote', (req, res) => {
 app.put('/messages/downvote', (req, res) => {
   db.collection('messages')
   .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
-    $set: {
-      thumbDown:req.body.thumbDown + 1
-    }
+   $inc: { thumbUp: -1 },
   }, {
     sort: {_id: -1},
     upsert: true
