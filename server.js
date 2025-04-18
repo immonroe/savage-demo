@@ -58,7 +58,7 @@ app.put('/messages/upvote', (req, res) => {
 app.put('/messages/downvote', (req, res) => {
   db.collection('messages')
   .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
-   $inc: { thumbUp: -1 },
+   $inc: { thumbUp: -1 }
   }, {
     sort: {_id: -1},
     upsert: true
